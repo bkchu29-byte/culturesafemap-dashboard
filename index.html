@@ -1773,140 +1773,123 @@ body.role-authority #noticeReplyBlock[hidden],
 body.role-authority #noticeReplyWaiting[hidden],
 body.role-authority #noticeReplyResult[hidden]{display:none!important}
 </style>
-<style id="notice-fixed-templates">
-/* ===== 공문 미리보기 최종 고정 템플릿 =====
-   Word와 HTML은 내용 데이터만 공유한다. 화면 CSS는 공문/붙임1/붙임2 각각 독립 관리한다. */
+<style id="notice-fixed-templates-v29">
+/* 공문·붙임1·붙임2는 서로 독립된 고정 A4 화면 템플릿이다. Word와는 내용 데이터만 공유한다. */
 body.role-authority .noticePaperPages{
-  display:grid;grid-template-columns:minmax(0,1fr);gap:24px;align-items:start;
-  width:100%;margin-top:14px;overflow:visible;
+  display:grid;grid-template-columns:794px;gap:24px;align-items:start;justify-content:start;
+  width:100%;max-width:100%;margin-top:14px;overflow-x:auto;overflow-y:visible;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch;
 }
 body.role-authority .noticePaper{
-  container-type:inline-size;box-sizing:border-box;margin:0 auto;color:#171717;background:#fff;
-  border:1px solid #d9d6d1;box-shadow:0 8px 24px rgba(35,48,60,.09);overflow-wrap:anywhere;
+  box-sizing:border-box;width:794px;min-width:794px;max-width:794px;height:1123px;min-height:1123px;margin:0;
+  color:#111;background:#fff;border:1px solid #d4d4d4;box-shadow:0 8px 24px rgba(35,48,60,.09);
+  font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif;overflow:hidden;overflow-wrap:anywhere;
 }
 body.role-authority .noticePaperHeaderRow{
-  display:flex;align-items:flex-start;justify-content:space-between;gap:2cqw;margin:0;padding:0;
-  border:0;font-size:1.15cqw;line-height:1.35;color:#6f6b67;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:0;padding:0;
+  border:0;font-size:10px;line-height:1.35;color:#6e6a65;
 }
-body.role-authority .noticePaperHeaderRow span{font-weight:750}
-body.role-authority .noticePaperHeaderRow strong{color:#a53028;font-weight:850;text-align:right;margin-left:auto}
+body.role-authority .noticePaperHeaderRow span{font-weight:700}
+body.role-authority .noticePaperHeaderRow strong{margin-left:auto;color:#9e3028;font-weight:800;text-align:right;white-space:nowrap}
+body.role-authority .noticePaper .noticeTableScroll{width:100%;max-width:100%;min-width:0;overflow:visible;padding:0}
 
-/* 1쪽 공문: Word의 항목 구조 + 기존 미리보기의 페이지 사용 비율 */
-body.role-authority .noticeLetterPaper{
-  width:min(100%,794px);aspect-ratio:210/297;min-height:0;
-  display:flex;flex-direction:column;padding:4.6cqw 6.8cqw 4.1cqw;
-  font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif;font-size:1.55cqw;line-height:1.68;
-}
-body.role-authority .noticeLetterPaper .noticePaperHeaderRow{min-height:2.4cqw;margin-bottom:2.0cqw}
-body.role-authority .noticeLetterPaper .noticePaperHeaderRow span{display:none}
+/* 1쪽 공문: 공공기관 공문 형태 */
+body.role-authority .noticeLetterPaper{display:flex;flex-direction:column;padding:20px 52px 28px;font-size:12px;line-height:1.8}
+body.role-authority .noticeLetterPaper .noticePaperHeaderRow{min-height:16px;margin-bottom:20px}
+body.role-authority .noticeLetterPaper .noticePaperHeaderRow span{visibility:hidden}
 body.role-authority .noticeLetterPaper .noticePaperOrg{
-  margin:0 0 3.9cqw;text-align:center;font-size:3.35cqw;line-height:1.14;font-weight:800;letter-spacing:.14em;color:#111;
+  margin:0 0 26px;text-align:center;font-size:27px;line-height:1.2;font-weight:800;letter-spacing:.19em;color:#080808;
 }
 body.role-authority .noticeLetterPaper .noticePaperInfo{
-  display:grid;grid-template-columns:13.5cqw minmax(0,1fr);column-gap:1.3cqw;row-gap:0;
-  border:0;font-size:1.55cqw;line-height:1.45;
+  display:grid;grid-template-columns:68px minmax(0,1fr);column-gap:4px;row-gap:0;margin:0 0 14px;
+  font-size:12px;line-height:1.45;
 }
-body.role-authority .noticeLetterPaper .noticePaperInfo>*{
-  min-width:0;padding:.78cqw .45cqw;border:0;background:#fff!important;
-}
-body.role-authority .noticeLetterPaper .noticePaperInfo b{font-weight:800;text-align:left;background:#fff!important}
+body.role-authority .noticeLetterPaper .noticePaperInfo>*{min-width:0;min-height:29px;padding:6px 4px;box-sizing:border-box;background:#fff!important}
+body.role-authority .noticeLetterPaper .noticePaperInfo b{font-weight:800;text-align:left}
 body.role-authority .noticeLetterPaper .noticePaperInfo strong{font-weight:800}
 body.role-authority .noticeLetterPaper .noticePaperInfo>*:nth-child(5),
-body.role-authority .noticeLetterPaper .noticePaperInfo>*:nth-child(6){border-bottom:1px solid #555;padding-bottom:1.15cqw}
-body.role-authority .noticeLetterPaper .noticePaperBody{
-  margin:2.15cqw .15cqw 0;font-size:1.58cqw;line-height:1.72;white-space:normal;
-}
-body.role-authority .noticeLetterPaper .noticePaperBody p{margin:0;color:#171717;font:inherit}
-body.role-authority .noticeLetterPaper .noticePaperBody .bodyNumbered{padding-left:3.9cqw;text-indent:-3.9cqw;margin-bottom:.85cqw}
-body.role-authority .noticeLetterPaper .noticePaperBody .bodySub{padding-left:6.0cqw;text-indent:-3.7cqw;margin-bottom:.32cqw;line-height:1.58}
-body.role-authority .noticeLetterPaper .noticePaperBody .bodyAttachment{margin-top:1.1cqw;white-space:pre-wrap;line-height:1.58}
-body.role-authority .noticeLetterPaper .noticeLetterFooter{margin-top:auto;padding-top:2.2cqw}
-body.role-authority .noticeLetterPaper .noticePaperSign{
-  margin:0 0 .45cqw;text-align:center;font-size:2.72cqw;line-height:1.22;font-weight:800;letter-spacing:.09em;
-}
-body.role-authority .noticeLetterPaper .noticePaperHint{margin:0 0 1.7cqw;text-align:center;font-size:1.08cqw;color:#69645f}
+body.role-authority .noticeLetterPaper .noticePaperInfo>*:nth-child(6){border-bottom:2px solid #555;padding-bottom:8px}
+body.role-authority .noticeLetterPaper .noticePaperBody{margin:0;font-size:12.2px;line-height:1.9;white-space:normal}
+body.role-authority .noticeLetterPaper .noticePaperBody p{margin:0;color:#111;font:inherit}
+body.role-authority .noticeLetterPaper .noticePaperBody .bodyNumbered{padding-left:25px;text-indent:-25px;margin-bottom:7px}
+body.role-authority .noticeLetterPaper .noticePaperBody .bodySub{padding-left:45px;text-indent:-23px;margin-bottom:2px;line-height:1.72}
+body.role-authority .noticeLetterPaper .noticePaperBody .bodyAttachment{margin-top:10px;white-space:pre-wrap;line-height:1.65}
+body.role-authority .noticeLetterPaper .noticeLetterFooter{margin-top:auto;padding-top:20px}
+body.role-authority .noticeLetterPaper .noticePaperSign{margin:0 0 4px;text-align:center;font-size:22px;line-height:1.25;font-weight:800;letter-spacing:.15em}
+body.role-authority .noticeLetterPaper .noticePaperHint{margin:0 0 12px;text-align:center;font-size:9px;color:#5f5b57}
 body.role-authority .noticeLetterPaper .noticePaperApproval{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;margin:0 0 1.65cqw;
-  border-top:.42cqw solid #d2cfcb;text-align:center;font-size:1.08cqw;line-height:1.3;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:18px 35px;width:100%;margin:0 0 10px;
+  border:0;text-align:center;font-size:9px;line-height:1.25;
 }
-body.role-authority .noticeLetterPaper .noticePaperApproval>*{
-  min-height:3.5cqw;padding:.65cqw .3cqw;display:grid;place-items:center;border:0;
-}
-body.role-authority .noticeLetterPaper .noticePaperApproval>.approvalShade{display:none}
+body.role-authority .noticeLetterPaper .noticePaperApproval>*{display:grid;place-items:center;min-width:0;padding:4px 3px;box-sizing:border-box}
+body.role-authority .noticeLetterPaper .noticePaperApproval>.approvalShade{display:block;background:#d7d7d7;border-right:1px solid #dedede}
 body.role-authority .noticeLetterPaper .noticePaperAdmin{
-  display:grid;grid-template-columns:13cqw minmax(0,1fr) 11cqw minmax(0,1fr);border:0;font-size:1.08cqw;line-height:1.35;
+  display:grid;grid-template-columns:82px minmax(0,1fr) 64px minmax(0,1fr);font-size:9px;line-height:1.35;
 }
-body.role-authority .noticeLetterPaper .noticePaperAdmin>*{min-width:0;padding:.5cqw .35cqw;border:0}
+body.role-authority .noticeLetterPaper .noticePaperAdmin>*{min-width:0;padding:5px 3px}
 body.role-authority .noticeLetterPaper .noticePaperAdmin b{display:flex;align-items:center;background:#fff;font-weight:800;text-align:left}
-body.role-authority .noticeLetterPaper .noticePaperWarning{
-  margin:1.35cqw 0 0;text-align:center;color:#171717;font-size:1.04cqw;line-height:1.45;font-weight:800;
-}
+body.role-authority .noticeLetterPaper .noticePaperWarning{margin:10px 0 0;text-align:center;color:#171717;font-size:9px;line-height:1.45;font-weight:800}
 
-/* 붙임 1: 현재 세이프맵 표 디자인 유지 */
-body.role-authority .noticeSummaryPaper{
-  width:min(100%,794px);aspect-ratio:210/297;min-height:0;display:flex;flex-direction:column;padding:5.3cqw 6.0cqw 4.3cqw;
-  font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif;font-size:1.5cqw;line-height:1.5;
-}
-body.role-authority .noticeSummaryPaper .noticePaperHeaderRow{margin-bottom:2.25cqw}
-body.role-authority .noticeSummaryPaper .noticeAttachLabel{display:block;margin:0 0 .5cqw;font-size:1.38cqw;font-weight:800;color:#444}
-body.role-authority .noticeSummaryPaper h2{margin:0 0 3.5cqw;text-align:center;font-size:2.78cqw;line-height:1.35;color:#111;letter-spacing:-.02em}
-body.role-authority .noticeSummaryPaper h3{margin:2.75cqw 0 1.0cqw;font-size:1.88cqw;line-height:1.35;color:#111}
+/* 붙임 1: 행사별 감염병 판단 및 예방관리 요약 캡처 기준 */
+body.role-authority .noticeSummaryPaper{display:flex;flex-direction:column;padding:30px 28px 24px;font-size:11px;line-height:1.45}
+body.role-authority .noticeSummaryPaper .noticePaperHeaderRow{margin-bottom:11px}
+body.role-authority .noticeSummaryPaper .noticeAttachLabel{display:block;margin:0 0 16px;font-size:12px;font-weight:800;color:#111}
+body.role-authority .noticeSummaryPaper h2{margin:0 0 22px;text-align:center;font-size:21px;line-height:1.3;color:#111;letter-spacing:-.02em}
+body.role-authority .noticeSummaryPaper h3{margin:19px 0 8px;font-size:15px;line-height:1.3;color:#111}
 body.role-authority .noticeSummaryPaper h3:first-of-type{margin-top:0}
 body.role-authority .noticeSummaryPaper .noticeAttachInfo{
-  display:grid;grid-template-columns:11.6cqw minmax(0,1fr) 11.6cqw minmax(0,1fr);border-top:1px solid #aaa6a1;border-left:1px solid #aaa6a1;font-size:1.45cqw;
+  display:grid;grid-template-columns:72px minmax(0,1fr) 72px minmax(0,1fr);border-top:1px solid #999;border-left:1px solid #999;font-size:10.5px;
 }
-body.role-authority .noticeSummaryPaper .noticeAttachInfo>*{min-width:0;min-height:4.9cqw;padding:1.1cqw 1.0cqw;display:flex;align-items:center;border-right:1px solid #aaa6a1;border-bottom:1px solid #aaa6a1}
-body.role-authority .noticeSummaryPaper .noticeAttachInfo b{justify-content:center;background:#f1efec;text-align:center;font-weight:800}
-body.role-authority .noticeSummaryPaper table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:1.41cqw;line-height:1.45;color:#171717}
-body.role-authority .noticeSummaryPaper th,body.role-authority .noticeSummaryPaper td{padding:1.12cqw .88cqw;border:1px solid #aaa6a1;vertical-align:middle}
-body.role-authority .noticeSummaryPaper th{background:#eceae7;text-align:center;font-weight:800}
-body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(1){width:20%}.noticeSummaryPaper .noticeJudgment th:nth-child(2){width:17%}.noticeSummaryPaper .noticeJudgment th:nth-child(3){width:18%}.noticeSummaryPaper .noticeJudgment th:nth-child(4){width:17%}.noticeSummaryPaper .noticeJudgment th:nth-child(5){width:28%}
+body.role-authority .noticeSummaryPaper .noticeAttachInfo>*{min-width:0;min-height:31px;padding:7px 8px;display:flex;align-items:center;border-right:1px solid #999;border-bottom:1px solid #999}
+body.role-authority .noticeSummaryPaper .noticeAttachInfo b{justify-content:center;background:#ececec;text-align:center;font-weight:800}
+body.role-authority .noticeSummaryPaper table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10.5px;line-height:1.4;color:#111}
+body.role-authority .noticeSummaryPaper th,body.role-authority .noticeSummaryPaper td{padding:7px 8px;border:1px solid #999;vertical-align:middle}
+body.role-authority .noticeSummaryPaper th{background:#e6e6e6;text-align:center;font-weight:800}
+body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(1){width:20%}
+body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(2){width:17%}
+body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(3){width:18%}
+body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(4){width:17%}
+body.role-authority .noticeSummaryPaper .noticeJudgment th:nth-child(5){width:28%}
 body.role-authority .noticeSummaryPaper .noticeJudgment td:not(:last-child){text-align:center}
-body.role-authority .noticeSummaryPaper .noticeActions th:first-child{width:22%}
+body.role-authority .noticeSummaryPaper .noticeEvidenceLine{display:block;margin:7px 0 0;font-size:9.5px;line-height:1.45;color:#6a625b}
+body.role-authority .noticeSummaryPaper .noticeActions th:first-child{width:20%}
 body.role-authority .noticeSummaryPaper .noticeActions td:first-child{text-align:center;font-weight:800}
-body.role-authority .noticeSummaryPaper .noticePaperSources{display:grid;grid-template-columns:17.1cqw minmax(0,1fr);border-top:1px solid #aaa6a1;border-left:1px solid #aaa6a1;font-size:1.38cqw}
-body.role-authority .noticeSummaryPaper .noticePaperSources>*{min-width:0;min-height:4.8cqw;padding:1.0cqw;border-right:1px solid #aaa6a1;border-bottom:1px solid #aaa6a1;display:flex;align-items:center}
-body.role-authority .noticeSummaryPaper .noticePaperSources b{justify-content:center;background:#f1efec;text-align:center}
-body.role-authority .noticeSummaryPaper .noticeAttachmentDisclaimer{margin:auto 0 0;padding-top:2.2cqw;text-align:center;font-size:1.32cqw;line-height:1.5;color:#55514d;font-weight:750}
+body.role-authority .noticeSummaryPaper .noticePaperSources{display:grid;grid-template-columns:118px minmax(0,1fr);border-top:1px solid #999;border-left:1px solid #999;font-size:10.5px}
+body.role-authority .noticeSummaryPaper .noticePaperSources>*{min-width:0;min-height:35px;padding:7px 8px;border-right:1px solid #999;border-bottom:1px solid #999;display:flex;align-items:center}
+body.role-authority .noticeSummaryPaper .noticePaperSources b{justify-content:center;background:#ececec;text-align:center}
+body.role-authority .noticeSummaryPaper .noticeAttachmentDisclaimer{margin:auto 0 0;padding-top:16px;text-align:center;font-size:9.5px;line-height:1.45;color:#4f4a46;font-weight:700}
 
-/* 붙임 2: Word 원본의 A4 비율/행 높이/표 폭을 화면에서 그대로 재현 */
-body.role-authority .noticeChecklistPaper{
-  width:min(100%,794px);aspect-ratio:210/297;min-height:0;display:flex;flex-direction:column;padding:4.0cqw 5.9cqw 4.0cqw;
-  font-family:"Malgun Gothic","맑은 고딕",Arial,sans-serif;font-size:1.27cqw;line-height:1.28;
-}
-body.role-authority .noticeChecklistPaper .noticePaperHeaderRow{min-height:2.1cqw;margin-bottom:.55cqw}
-body.role-authority .noticeChecklistPaper .noticePaperHeaderRow span{display:none}
-body.role-authority .noticeChecklistPaper .noticeAttachLabel{display:block;margin:0 0 .2cqw;font-size:1.28cqw;font-weight:800;color:#222}
-body.role-authority .noticeChecklistPaper h2{margin:0 0 1.6cqw;text-align:center;font-size:2.78cqw;line-height:1.25;color:#111;letter-spacing:-.025em}
-body.role-authority .noticeChecklistPaper .noticeChecklistIntro{margin:0 0 1.55cqw;font-size:1.24cqw;line-height:1.42;color:#222;text-align:left}
-body.role-authority .noticeChecklistPaper .noticeReturnChecklist{width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:1.18cqw!important;line-height:1.22!important;color:#171717}
-body.role-authority .noticeChecklistPaper .noticeReturnChecklist th,body.role-authority .noticeChecklistPaper .noticeReturnChecklist td{padding:.54cqw .45cqw!important;border:1px solid #aaa6a1;vertical-align:middle;word-break:keep-all;overflow-wrap:break-word}
-body.role-authority .noticeChecklistPaper .noticeReturnChecklist th{background:#e9e7e3;font-size:1.20cqw!important;font-weight:800;text-align:center}
+/* 붙임 2: 군중행사 완화요인 18문항 세로 체크리스트 캡처 기준 */
+body.role-authority .noticeChecklistPaper{display:flex;flex-direction:column;padding:18px 28px 22px;font-size:10px;line-height:1.3}
+body.role-authority .noticeChecklistPaper .noticePaperHeaderRow{min-height:15px;margin-bottom:3px}
+body.role-authority .noticeChecklistPaper .noticePaperHeaderRow span{visibility:hidden}
+body.role-authority .noticeChecklistPaper .noticeAttachLabel{display:block;margin:0 0 2px;font-size:10px;font-weight:800;color:#111}
+body.role-authority .noticeChecklistPaper h2{margin:0 0 13px;text-align:center;font-size:20px;line-height:1.3;color:#111;letter-spacing:-.025em}
+body.role-authority .noticeChecklistPaper .noticeChecklistIntro{margin:0 0 8px;font-size:9.8px;line-height:1.45;color:#111;text-align:left}
+body.role-authority .noticeChecklistPaper .noticeReturnChecklist{width:100%;min-width:0!important;border-collapse:collapse;table-layout:fixed;font-size:9.3px!important;line-height:1.22!important;color:#111}
+body.role-authority .noticeChecklistPaper .noticeReturnChecklist th,
+body.role-authority .noticeChecklistPaper .noticeReturnChecklist td{padding:6px 5px!important;border:1px solid #aaa;vertical-align:middle;word-break:keep-all;overflow-wrap:break-word}
+body.role-authority .noticeChecklistPaper .noticeReturnChecklist th{background:#e7e6e4;font-size:9.5px!important;font-weight:800;text-align:center}
 body.role-authority .noticeChecklistPaper .noticeReturnChecklist th:nth-child(1){width:4%}
 body.role-authority .noticeChecklistPaper .noticeReturnChecklist th:nth-child(2){width:18%}
 body.role-authority .noticeChecklistPaper .noticeReturnChecklist th:nth-child(3){width:50%}
 body.role-authority .noticeChecklistPaper .noticeReturnChecklist th:nth-child(4){width:17%}
 body.role-authority .noticeChecklistPaper .noticeReturnChecklist th:nth-child(5){width:11%}
 body.role-authority .noticeChecklistPaper .mitigationNo{text-align:center;font-weight:500}
-body.role-authority .noticeChecklistPaper .mitigationGroup{text-align:center;background:#f7f5f1;font-size:1.16cqw;font-weight:800;line-height:1.08}
-body.role-authority .noticeChecklistPaper .mitigationGroup b{display:block;margin:0 0 .28cqw;font-size:1.35cqw}
+body.role-authority .noticeChecklistPaper .mitigationGroup{text-align:center;background:#f5f4f2;font-size:9.2px;font-weight:800;line-height:1.15}
+body.role-authority .noticeChecklistPaper .mitigationGroup b{display:block;margin:0 0 2px;font-size:11px}
 body.role-authority .noticeChecklistPaper .mitigationGroup span{display:block}
-body.role-authority .noticeChecklistPaper .mitigationChoice{text-align:center;white-space:nowrap;font-size:1.18cqw}
-body.role-authority .noticeChecklistPaper .mitigationNote{padding-left:.3cqw!important;padding-right:.3cqw!important}
-body.role-authority .noticeChecklistPaper .noticeReplyMethodTitle{margin:1.0cqw 0 .38cqw;font-size:1.22cqw;font-weight:850}
-body.role-authority .noticeChecklistPaper .noticeOnlineSubmit{display:grid;grid-template-columns:13cqw minmax(0,1fr);border-top:1px solid #aaa6a1;border-left:1px solid #aaa6a1;font-size:1.17cqw;line-height:1.3}
-body.role-authority .noticeChecklistPaper .noticeOnlineSubmit>*{padding:.72cqw;border-right:1px solid #aaa6a1;border-bottom:1px solid #aaa6a1;display:flex;align-items:center}
-body.role-authority .noticeChecklistPaper .noticeOnlineSubmit b{justify-content:center;background:#f7f5f1}
-body.role-authority .noticeChecklistPaper .noticeChecklistNote{margin:.55cqw 0 0;font-size:1.12cqw;line-height:1.35;color:#222}
-
-body.role-authority .noticePaper .noticeTableScroll{width:100%;max-width:100%;min-width:0;overflow-x:auto;overflow-y:hidden;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+body.role-authority .noticeChecklistPaper .mitigationChoice{text-align:center;white-space:nowrap;font-size:9.2px}
+body.role-authority .noticeChecklistPaper .mitigationNote{padding-left:3px!important;padding-right:3px!important}
+body.role-authority .noticeChecklistPaper .noticeReplyMethodTitle{margin:9px 0 3px;font-size:10px;font-weight:800}
+body.role-authority .noticeChecklistPaper .noticeOnlineSubmit{display:grid;grid-template-columns:88px minmax(0,1fr);border-top:1px solid #aaa;border-left:1px solid #aaa;font-size:9.3px;line-height:1.3}
+body.role-authority .noticeChecklistPaper .noticeOnlineSubmit>*{padding:6px;border-right:1px solid #aaa;border-bottom:1px solid #aaa;display:flex;align-items:center}
+body.role-authority .noticeChecklistPaper .noticeOnlineSubmit b{justify-content:center;background:#f5f4f2}
+body.role-authority .noticeChecklistPaper .noticeChecklistNote{margin:5px 0 0;font-size:8.8px;line-height:1.35;color:#222}
 
 @media(max-width:760px){
-  /* 문서 미리보기는 A4 비율을 유지하고, 화면 너비에 맞춰 cqw가 함께 축소된다. */
   body.role-authority .noticePaperPages{gap:16px;margin-top:10px}
-  body.role-authority .noticeLetterPaper,body.role-authority .noticeSummaryPaper,body.role-authority .noticeChecklistPaper{width:100%;max-width:100%;box-shadow:none}
-  body.role-authority .noticeSummaryPaper .noticeJudgment{min-width:0}
-  body.role-authority .noticeChecklistPaper .noticeReturnChecklist{min-width:0!important}
+  body.role-authority .noticePaper .noticeTableScroll::before{content:none!important;display:none!important}
 }
 </style>
 
@@ -1951,7 +1934,79 @@ body.role-authority #authNoticeRegionSelect{width:100%;min-height:43px;border:1p
 }
 </style>
 
-\n<style id="v27-mobile-monitor-targeted-fix">\n/* 모바일 모니터링 UI는 기존 구성을 유지. 질병 추이 바로 아래에 최근 4주 변화만 추가. */\n.monitorRecentMobilePanelV27{display:none}\n@media(max-width:760px){\n  body.role-attendee .monitorRecentMobilePanelV27{display:block;margin:8px 0 2px;padding:10px 11px;border:1px solid #e6e0d8;border-radius:14px;background:#fffdf9}\n  body.role-attendee .monitorRecentMobileHead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}\n  body.role-attendee .monitorRecentMobileHead b{font-size:11px;color:#24211f}\n  body.role-attendee .monitorRecentMobileHead span{font-size:8px;color:#928a80;white-space:nowrap}\n  body.role-attendee .monitorRecentMobilePanelV27 .orgRecentList{display:flex;flex-direction:column;gap:5px;margin-top:0}\n  body.role-attendee .monitorRecentMobilePanelV27 .orgRecentRow{display:grid;grid-template-columns:minmax(0,1fr) auto 54px;gap:6px;align-items:center;min-height:30px;padding:5px 6px;border:1px solid #ebe6df;border-radius:9px;background:#fff}\n  body.role-attendee .monitorRecentMobilePanelV27 .orgRecentDisease b{display:block;font-size:10px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n  body.role-attendee .monitorRecentMobilePanelV27 .orgRecentStage{display:inline-flex;align-items:center;justify-content:center;min-height:21px;padding:0 6px;border-radius:999px;font-size:9px;font-weight:950;white-space:nowrap}\n  body.role-attendee .monitorRecentMobilePanelV27 .orgRecentDelta{text-align:right;font-size:9px;font-weight:950;white-space:nowrap}\n  /* 드래그 중 JS의 inline transform이 우선되도록 expanded transform에 !important를 사용하지 않는다. */\n  body.role-attendee #authorityPanel.monitorExpanded{transform:translateY(0)}\n  body.role-attendee #authorityPanel.monitorDragging{transition:none!important}\n}\n</style>\n</head>
+<style id="v29-targeted-restoration">
+/* 승인된 모바일 최근 4주 카드 유지 */
+.monitorRecentMobilePanelV27{display:none!important}
+
+/* 모니터링 전용: 지역 hover와 click 고정 팝업의 크기·글자·공연 행을 완전히 동일하게 고정한다. */
+body.role-attendee .mapTooltip,
+body.role-attendee .mapTooltip.pinned{
+  box-sizing:border-box;width:min(330px,calc(100% - 24px));min-width:0;max-width:calc(100% - 24px)!important;
+  max-height:min(540px,calc(100% - 24px))!important;padding:12px!important;overflow-y:auto!important;
+  border:1px solid #e6dfd5;border-radius:18px;background:rgba(255,253,248,.98);color:#171820;
+  box-shadow:0 18px 32px rgba(38,42,56,.16);font-size:10px!important;line-height:1.4!important;
+  font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif!important;
+  transform:none!important;zoom:1!important;
+}
+body.role-attendee .mapTooltip{pointer-events:none}
+body.role-attendee .mapTooltip.pinned{pointer-events:auto!important}
+body.role-attendee .mapTooltip.pinned .mapTooltipPinBar{
+  position:sticky!important;top:-12px!important;z-index:3;display:flex;align-items:center;justify-content:space-between;
+  margin:-4px -4px 8px;padding:4px 0 8px!important;border-bottom:1px solid #ece5dc;background:#fffdf8;
+}
+body.role-attendee .mapTooltip .mapTooltipPinBar span{font-size:9px!important;line-height:1.35!important}
+body.role-attendee .mapTooltip .mapTooltipClose{font-size:14px!important;line-height:1!important}
+body.role-attendee .mapTooltip .tipCap{font-size:9px!important;line-height:1.4!important;color:#7f8794}
+body.role-attendee .mapTooltip .tipTitle{font-size:15px!important;line-height:1.3!important;color:#171820}
+body.role-attendee .mapTooltip .tipGrid{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+body.role-attendee .mapTooltip .tipGrid div,
+body.role-attendee .mapTooltip .tipGrid b{font-size:9px!important;line-height:1.4!important}
+body.role-attendee .mapTooltip .tipEventList{max-height:min(310px,calc(100vh - 250px))!important;margin-top:8px;padding:0 6px 10px 0;overflow-y:auto!important;overscroll-behavior:contain;box-sizing:border-box}
+body.role-attendee .mapTooltip .tipEventItem,
+body.role-attendee .mapTooltip .tipEventButton{
+  appearance:none;-webkit-appearance:none;display:block;width:100%;box-sizing:border-box;margin:0;padding:8px 0;
+  border:0;border-top:1px dashed #e6ded3;background:transparent;color:inherit;text-align:left;
+  font-family:inherit!important;font-size:10px!important;font-weight:inherit;line-height:1.4!important;cursor:default;
+}
+body.role-attendee .mapTooltip .tipEventItem:first-child,
+body.role-attendee .mapTooltip .tipEventButton:first-child{border-top:0}
+body.role-attendee .mapTooltip.pinned .tipEventButton{cursor:pointer}
+body.role-attendee .mapTooltip.pinned .tipEventButton:hover,
+body.role-attendee .mapTooltip.pinned .tipEventButton:focus-visible{border-radius:8px;background:#f8f5ef;outline:2px solid #c9bcec;outline-offset:0}
+body.role-attendee .mapTooltip .tipEventDate{font-size:8px!important;line-height:1.4!important}
+body.role-attendee .mapTooltip .tipEventName{font-size:10px!important;line-height:1.35!important}
+body.role-attendee .mapTooltip .tipEventMeta,
+body.role-attendee .mapTooltip .tipVenueAddress,
+body.role-attendee .mapTooltip .tipHint,
+body.role-attendee .mapTooltip .tipEventOpen{font-size:8px!important;line-height:1.45!important}
+body.role-attendee .mapTooltip .tipNoticePriority{font-size:8px!important}
+body.role-attendee .mapTooltip .mapTooltipAction{font-size:10px!important;line-height:1.35!important}
+
+/* 클릭한 공연의 상세 정보도 hover 공연 행과 같은 타이포그래피를 사용한다. */
+body.role-attendee .mapTooltip .monitorEventPopup{font-size:10px!important;line-height:1.4!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupBadge{font-size:9px!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupTitle{font-size:15px!important;line-height:1.3!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupAddr{font-size:8px!important;line-height:1.45!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupSection span{font-size:8px!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupSection b{font-size:10px!important;line-height:1.4!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupDecision>span,
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupDecision>small{font-size:8px!important}
+body.role-attendee .mapTooltip .monitorEventPopup .venuePopupDecision>b{font-size:10px!important}
+
+/* 공문·회신 화면 팝업은 v28에서 승인된 상태를 그대로 유지한다. */
+body.role-authority .mapTooltip.pinned{max-height:min(620px,calc(100% - 24px))!important;padding:12px!important}
+body.role-authority .mapTooltip.pinned .mapTooltipPinBar{
+  position:sticky!important;top:-12px!important;z-index:3;margin:-4px -4px 8px;padding:4px 0 8px!important;
+  border-bottom:1px solid #ece5dc;background:#fffdf8;
+}
+
+@media(max-width:760px){
+  body.role-attendee .monitorRecentMobilePanelV27{display:block!important;margin:9px 0 2px!important;padding:10px 11px!important;border:1px solid #e6e0d8;border-radius:14px;background:#fcfdfc}
+  body.role-attendee #authorityPanel.monitorExpanded{transform:translateY(0)}
+  body.role-attendee #authorityPanel.monitorDragging{transition:none!important}
+}
+</style>
+</head>
 <body class="role-authority">
 <div class="loginGate hidden" id="loginGate" aria-label="기관 업무 탐색">
   <div class="loginCard">
@@ -2006,8 +2061,8 @@ body.role-authority #authNoticeRegionSelect{width:100%;min-height:43px;border:1p
           </div>
         </div>
       </section>
-      <aside class="monitorRecentMobilePanelV27" id="monitorRecentMobilePanel" aria-label="최근 4주 감염병 변화">
-        <div class="monitorRecentMobileHead"><b>최근 4주 변화</b><span>전국 표본감시 · 레벨백분위 기준</span></div>
+      <aside class="monitorRecentPanelV10 monitorRecentMobilePanelV27" id="monitorRecentMobilePanel" aria-label="최근 4주 감염병 변화">
+        <div class="monitorRecentHeadV10 monitorRecentMobileHead"><b>최근 4주 변화</b><span>전국 표본감시 · 레벨백분위 기준</span></div>
         <div class="orgRecentList monitorRecentList" id="monitorRecentDiseaseListMobile"><div class="orgRecentEmpty">감염병 자료를 불러오는 중입니다.</div></div>
       </aside>
       
@@ -2046,7 +2101,7 @@ body.role-authority #authNoticeRegionSelect{width:100%;min-height:43px;border:1p
             <details class="noticeDraftCollapse" id="noticeDraftCollapse" open><summary><span>공문·체크리스트 초안 미리보기</span><small>항상 펼쳐서 확인</small></summary><div class="noticeDraftCollapseBody">
             <div class="noticePaperPages">
               <article class="noticePaper noticeLetterPaper" aria-label="감염병 예방관리 협조 공문 초안 1쪽">
-                <div class="noticePaperHeaderRow"><span>과거 패턴 기반 문화행사 감염병 예방공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
+                <div class="noticePaperHeaderRow"><span>감염병 예방관리 공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
                 <h2 class="noticePaperOrg">○ ○ 시&nbsp;&nbsp;감 염 병 관 리 과</h2>
                 <div class="noticePaperInfo"><b>수신</b><span id="noticeDocRecipient"></span><b>(경유)</b><span id="noticeDocDepartment"></span><b>제목</b><strong id="noticeDocTitle"></strong></div>
                 <div class="noticePaperBody" id="noticeDocBody"></div>
@@ -2059,21 +2114,22 @@ body.role-authority #authNoticeRegionSelect{width:100%;min-height:43px;border:1p
                 </div>
               </article>
               <article class="noticePaper noticeSummaryPaper" aria-label="감염병 예방관리 협조 공문 붙임 1">
-                <div class="noticePaperHeaderRow"><span>과거 패턴 기반 문화행사 감염병 예방공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
-                <b class="noticeAttachLabel">붙임</b><h2>행사별 감염병 판단 및 예방관리 요약</h2>
+                <div class="noticePaperHeaderRow"><span>감염병 예방관리 공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
+                <b class="noticeAttachLabel">붙임 1</b><h2>행사별 감염병 판단 및 예방관리 요약</h2>
                 <h3>1. 행사 기본정보</h3>
-                <div class="noticeAttachInfo"><b>행사명</b><span id="noticeDocEventName"></span><b>행사기간</b><span id="noticeDocEventPeriod"></span><b>장르</b><span id="noticeDocGenre"></span><b>지역</b><span id="noticeDocRegion"></span><b>장소</b><span id="noticeDocVenue"></span><b>노출단계</b><span id="noticeDocExposure"></span><b>좌석수</b><span id="noticeDocSeats"></span><b>실내/야외</b><span id="noticeDocIndoor"></span></div>
+                <div class="noticeAttachInfo"><b>행사명</b><span id="noticeDocEventName"></span><b>행사기간</b><span id="noticeDocEventPeriod"></span><b>장소</b><span id="noticeDocVenue"></span><b>장르</b><span id="noticeDocGenre"></span><b>지역</b><span id="noticeDocRegion"></span><b>좌석수</b><span id="noticeDocSeats"></span><b>노출단계</b><span id="noticeDocExposure"></span><b>실내/야외</b><span id="noticeDocIndoor"></span></div>
                 <h3>2. 자동 판단 결과</h3>
                 <div class="noticeTableScroll"><table class="noticeJudgment"><thead><tr><th>감염병</th><th>과거 반복성</th><th>최근 상태</th><th>최종 상태</th><th>판단 요약</th></tr></thead><tbody id="noticeDocJudgments"></tbody></table></div>
+                <span class="noticeEvidenceLine" id="noticeDocEvidence"></span>
                 <h3>3. 예방관리 협조사항</h3>
                 <div class="noticeTableScroll"><table class="noticeActions"><thead><tr><th>적용 대상</th><th>협조사항</th></tr></thead><tbody><tr><td>행사장</td><td>환기 가능 여부와 혼잡 예상구간을 사전 점검하고 운영계획에 반영</td></tr><tr><td>참가자</td><td>손 씻기·기침예절 및 호흡기 증상 시 마스크 착용·참여 자제 안내</td></tr><tr><td>운영인력</td><td>예방수칙과 유증상자 발생 시 내부 연락절차 사전 공유</td></tr><tr><td>행사 직전</td><td>최신 감시자료 재확인 후 필요 시 안내수준 조정</td></tr></tbody></table></div>
                 <h3>4. 자료출처 및 유의사항</h3>
                 <div class="noticePaperSources"><b>과거·최근 감시자료</b><span>질병관리청 감염병포털 급성호흡기감염증·인플루엔자 통계</span><b>예방수칙</b><span>질병관리청 국가건강정보포털 급성호흡기바이러스감염증 예방정보</span><b>행사정보</b><span>KOPIS 공연·공연시설 데이터</span></div>
                 <p class="noticeAttachNote noticeAttachmentDisclaimer">본 붙임은 과거 반복 패턴과 행사 특성을 바탕으로 담당자 검토를 지원하는 행정 참고자료이며, 인과관계·개인별 감염위험·의료적 진단을 제시하지 않습니다.</p>
-                <span id="noticeDocAsOf" hidden></span><span id="noticeDocEvidence" hidden></span>
+                <span id="noticeDocAsOf" hidden></span>
               </article>
               <article class="noticePaper noticeChecklistPaper" aria-label="완화요인 회신 체크리스트 붙임 2">
-                <div class="noticePaperHeaderRow"><span>과거 패턴 기반 문화행사 감염병 예방공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
+                <div class="noticePaperHeaderRow"><span>감염병 예방관리 공문 자동화 시스템</span><strong>시연용 자동생성 초안 · 외부발송 금지</strong></div>
                 <b class="noticeAttachLabel">붙임 2</b><h2>군중행사 감염병 완화요인 회신 체크리스트</h2>
                 <p class="noticeChecklistIntro">질병관리청 「군중행사 감염병 위험평가 매뉴얼」의 7개 완화요인과 18개 세부지표입니다. 각 항목의 예 또는 아니오를 선택하고, 필요한 경우 비고에 근거를 작성해 주십시오.</p>
                 <div class="noticeTableScroll"><table class="noticeReturnChecklist"><thead><tr><th>No.</th><th>완화요인</th><th>세부 확인항목</th><th>주최 측 회신</th><th>비고</th></tr></thead><tbody><tr><td class="mitigationNo">1</td><td class="mitigationGroup" rowspan="3"><b>①</b><span>운영인력 등 대상 감염병 교육 및 보호 조치</span></td><td class="mitigationItem">의료직원 대상 감염병 교육 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">2</td><td class="mitigationItem">운영인력 대상 감염병 교육 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">3</td><td class="mitigationItem">개인위생 물품(손소독제, 마스크 등) 확보 및 제공 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">4</td><td class="mitigationGroup" rowspan="3"><b>②</b><span>참여자 대상 감염병 현황 및 응급대처 정보 제공</span></td><td class="mitigationItem">(행사 전) 현재 유행하는 감염병 종류·임상적 특징·대응방법 정보 제공 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">5</td><td class="mitigationItem">(행사 중·후) 행사장 내 감염병 발생 시 정보 제공 계획 수립 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">6</td><td class="mitigationItem">행사장 내 의료지원팀 위치 정보 제공 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">7</td><td class="mitigationGroup" rowspan="1"><b>③</b><span>참여자 대상 개인 위생 교육</span></td><td class="mitigationItem">개인위생(기침 예절, 손 위생, 신체적 거리두기 등) 교육 또는 홍보 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">8</td><td class="mitigationGroup" rowspan="3"><b>④</b><span>실내 환기·공기 청정 관리</span></td><td class="mitigationItem">환기 담당자 지정 및 실내 공기질 관리 교육 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">9</td><td class="mitigationItem">공기질 관리 장치(환기팬, 에어컨 및 공기청정기 등) 필터 점검 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">10</td><td class="mitigationItem">환기 계획 수립 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">11</td><td class="mitigationGroup" rowspan="2"><b>⑤</b><span>위생 시설 관리 상태</span></td><td class="mitigationItem">손 씻기 시설(화장실 내 세면대 등) 확보 및 충분 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">12</td><td class="mitigationItem">청소담당자 지정 및 위생 상태 점검 계획 수립 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">13</td><td class="mitigationGroup" rowspan="3"><b>⑥</b><span>감염병 대응 계획·절차 마련</span></td><td class="mitigationItem">의료인력 배치 및 의료 지원 시설 확보 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">14</td><td class="mitigationItem">감염병 발생 시 환자 이송 체계 마련 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">15</td><td class="mitigationItem">감염병 발생 시 대응 절차 마련 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">16</td><td class="mitigationGroup" rowspan="3"><b>⑦</b><span>위험 소통 체계 마련</span></td><td class="mitigationItem">감염병 발생 시 보도 계획 수립 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">17</td><td class="mitigationItem">감염병 관련 정보 공유 체계 확보 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr><tr><td class="mitigationNo">18</td><td class="mitigationItem">감염병 발생 시 취재지원 계획 수립 여부</td><td class="mitigationChoice">□ 예&nbsp;&nbsp;&nbsp;□ 아니오</td><td class="mitigationNote"></td></tr></tbody></table></div>
